@@ -3,14 +3,14 @@ import { expensesDataAPI } from "../api/api";
 const GET_ALL_EXPENSES = 'expenses-app/tableData/GET_ALL_EXPENSES';
 const SET_DATA_IS_LOADING = 'expenses-app/tableData/SET_DATA_IS_LOADING';
 
-type ExpenseData = {
+export type ExpenseData = {
     key: string,
     discription: string,
     cost: number,
     date: string
 }
 
-type State = {
+export type State = {
     dataSource: Array<ExpenseData> | [],
     dataSourceIsLoading: boolean
 }

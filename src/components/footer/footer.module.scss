@@ -1,0 +1,16 @@
+.footer{
+    background-color: #1890ff;
+    padding: 15px 0;
+    color: white;
+    font-size: 18px;
+    font-weight: 500;
+    font-style: italic;
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    div{
+        padding-left: 15px
+    }
+}
