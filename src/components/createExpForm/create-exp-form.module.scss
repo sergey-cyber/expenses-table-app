@@ -1,0 +1,18 @@
+.checkbox{
+    font-size: 18px;
+    input{
+        height: 17px;
+        width: 17px;
+        margin-left: 15px;
+    }
+}
+
+.error{
+    color: rgb(195, 0, 0);
+    font-weight: 700;
+    font-style: italic;
+}
+
+.fieldError{
+    border: 1px solid rgb(139, 0, 0);
+}
