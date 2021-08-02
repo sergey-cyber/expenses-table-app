@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import styles from './create-exp-form.module.scss';
 import { Button, Header, Modal, Form } from 'semantic-ui-react'
+import {useDispatch, useSelector } from 'react-redux';
+import { postNewExpense, State } from '../../redux/table-reduser';
 import { generateHexString } from '../../utilits/randomKeyGenerator';
-import { expensesDataAPI } from '../../api/api';
-import { useDispatch } from 'react-redux';
-import { postNewExpense } from '../../redux/table-reduser';
 
 type FormData = {
     discription: string,
@@ -36,6 +35,8 @@ export function CrateExpenseForm (props: Props) {
 
     const [formData, setFormData ] = useState(initFormData);
     const [requiredError, setRequiredError] = useState({discription: false, cost: false});
+    const year: string = useSelector((state: any) => state.tableData.currentYear);
+    const month: string = useSelector((state: any) => state.tableData.currentMonth);
     const dispatch = useDispatch()
 
     const handleSubmit = (event: any) => {
@@ -43,9 +44,9 @@ export function CrateExpenseForm (props: Props) {
             key: generateHexString(26),
             discription: formData.discription,
             cost: formData.cost,
-            date: formData.date
+            date: formData.date ? formData.date : month
         }
-        dispatch(postNewExpense(submitValues));
+        dispatch(postNewExpense(year, month, submitValues));
         props.setShowCreateExpenseForm(false);
         setFormData(initFormData);
         event.preventDefault();

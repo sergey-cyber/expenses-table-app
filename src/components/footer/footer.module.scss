@@ -6,10 +6,10 @@
     font-weight: 500;
     font-style: italic;
     display: flex;
-    position: fixed;
+    width: 100%;
+    position: absolute;
     bottom: 0;
     left: 0;
-    width: 100%;
     div{
         padding-left: 15px
     }

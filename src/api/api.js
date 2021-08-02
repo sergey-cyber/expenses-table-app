@@ -9,20 +9,20 @@ const instance = axios.create({
 });
 
 export const expensesDataAPI = {
-    getAllExpenses () {
-        return instance.get('expensesData') //Базовый урл сам добавляется
+    getAllExpenses (year, month) {
+        return instance.get(`expensesData?year=${year}&month=${month}`) //Базовый урл сам добавляется
             .then((response) => response.data)
     },
-    postNewExpense(newExpensesData) {  //в объекте приходит: key, discription, cost, date
-        return instance.post('expensesData', newExpensesData) 
+    postNewExpense(year, month, newExpenseData) {  //в объекте приходит: key, discription, cost, date
+        return instance.post('expensesData', { year, month, newExpenseData}) 
             .then((response) => response.data)
     },
-    editExpense(newExpensesData) {  //Приходит массив со всеми данными
-        return instance.patch('expensesData', newExpensesData) 
+    editExpense(year, month, newMonthData) {  //Приходит массив со всеми данными
+        return instance.patch('expensesData', {year, month, newMonthData}) 
             .then((response) => response.data)
     },
-    deleteExpense(itemKey) {  //в объекте приходит: key, no, discription, cost, date
-        return instance.delete(`expensesData/${itemKey}`) //Отправляем Key элемента который нужно удалить 
+    deleteExpense(year, month, itemKey) {  //в объекте приходит: key, no, discription, cost, date
+        return instance.delete(`expensesData?year=${year}&month=${month}&itemKey=${itemKey}`) //Отправляем Key элемента который нужно удалить 
             .then((response) => response.data)
     }
 }

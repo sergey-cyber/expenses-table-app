@@ -1,10 +1,10 @@
 import React, { useContext, useState, useEffect, useRef } from 'react';
 import { Table, Input, Button, Popconfirm, Form } from 'antd';
 import { expensesDataAPI } from '../api/api';
-import { generateHexString } from '../utilits/randomKeyGenerator';
 import { Preloader } from './common/preloader';
 import { connect } from 'react-redux';
 import { getAllExpensesData } from '../redux/table-reduser';
+import styles from './table.module.scss';
 
 const EditableContext = React.createContext(null);
 
@@ -126,34 +126,32 @@ class EditableTable extends React.Component {
   }
 
   handleDelete = (key) => {
-    expensesDataAPI.deleteExpense(key)
-      .then(() => this.props.getAllExpensesData());
-    }
+    expensesDataAPI.deleteExpense(this.props.currentYear, this.props.currentMonth, key)
+      .then((response) => {
+        if(response.resultCode === 'successfull') {
+          this.props.getAllExpensesData(this.props.currentYear, this.props.currentMonth);
+        }
+      }); 
+  }
   handleAdd = () => {    
-    /* const { count, dataSource } = this.state;
-    const newData = {
-      key: generateHexString(26),
-      discription: 'Expenses Discription',
-      cost: 0,
-      date: 'Date',
-    };
-    this.setState({
-      dataSource: [...dataSource, newData],
-      count: count + 1,
-    }); */
     this.props.setShowCreateExpenseForm(true);
   };
+  
   handleSave = (row) => {
-    const newData = [...this.props.dataSource];
-    const index = newData.findIndex((item) => row.key === item.key);
-    const item = newData[index];
-    newData.splice(index, 1, { ...item, ...row });
-    expensesDataAPI.editExpense(newData)
-      .then(() => this.props.getAllExpensesData()) 
+    const newMonthData = [...this.props.dataSource];
+    const index = newMonthData.findIndex((item) => row.key === item.key);
+    const item = newMonthData[index];
+    newMonthData.splice(index, 1, { ...item, ...row });
+    expensesDataAPI.editExpense(this.props.currentYear, this.props.currentMonth, newMonthData)
+      .then((response) => {
+        if(response.resultCode === 'successfull') {
+          this.props.getAllExpensesData(this.props.currentYear, this.props.currentMonth);
+        }
+      }); 
   };
 
   componentDidMount = () => {
-    this.props.getAllExpensesData() //Получаем стартовый данные с сервака и диспатчим в стэйт
+    this.props.getAllExpensesData(this.props.currentYear, this.props.currentMonth) //Получаем стартовый данные с сервака и диспатчим в стэйт
   }
 
   render() {
@@ -185,9 +183,7 @@ class EditableTable extends React.Component {
         <Button
           onClick={this.handleAdd}
           type="primary"
-          style={{
-            marginBottom: 16,
-          }}
+          style={{ marginBottom: 16 }}
           disabled={this.state.startDataLoading}
         >
           Add a row
@@ -197,7 +193,7 @@ class EditableTable extends React.Component {
         ? 
         <Preloader fontSize = {54} />
         :
-        <Table
+        <Table className={styles.table}
           components={components}
           rowClassName={() => 'editable-row'}
           bordered
@@ -213,7 +209,9 @@ class EditableTable extends React.Component {
 const mapStateToProps = (state) => {
   return {
     dataSource: state.tableData.dataSource,
-    dataSourceIsLoading: state.tableData.dataSourceIsLoading
+    dataSourceIsLoading: state.tableData.dataSourceIsLoading,
+    currentYear: state.tableData.currentYear,
+    currentMonth: state.tableData.currentMonth
   }
 }
 
