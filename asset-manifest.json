@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/expenses-table-app/static/css/main.9e93a8b8.chunk.css",
-    "main.js": "/expenses-table-app/static/js/main.7ac448aa.chunk.js",
-    "main.js.map": "/expenses-table-app/static/js/main.7ac448aa.chunk.js.map",
+    "main.js": "/expenses-table-app/static/js/main.2626f163.chunk.js",
+    "main.js.map": "/expenses-table-app/static/js/main.2626f163.chunk.js.map",
     "runtime-main.js": "/expenses-table-app/static/js/runtime-main.853943a8.js",
     "runtime-main.js.map": "/expenses-table-app/static/js/runtime-main.853943a8.js.map",
     "static/css/2.e3d4b88d.chunk.css": "/expenses-table-app/static/css/2.e3d4b88d.chunk.css",
@@ -21,6 +21,6 @@
     "static/css/2.e3d4b88d.chunk.css",
     "static/js/2.8f32ce11.chunk.js",
     "static/css/main.9e93a8b8.chunk.css",
-    "static/js/main.7ac448aa.chunk.js"
+    "static/js/main.2626f163.chunk.js"
   ]
 }
