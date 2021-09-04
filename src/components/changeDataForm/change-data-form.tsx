@@ -46,11 +46,11 @@ export function ChangeDataForm () {
     
     return (
         <Modal open={formIsOpen} closeIcon
-                 onClose={() => {
-                     dispatch(setChangeDataFormOpen(null,false, null));
-                     setCostInputValue("");
-                     setIsPlus(true);
-                 }}>
+            onClose={() => {
+                dispatch(setChangeDataFormOpen(null,false, null));
+                setCostInputValue("");
+                setIsPlus(true);
+            }}>
             <Header content={"Отредактируйте стоимость"} />
             <Modal.Content>
             <Form onSubmit={handleSubmit} className={styles.changeDataForm} >
@@ -58,8 +58,8 @@ export function ChangeDataForm () {
                 <div>{ isPlus ? "Прибавить" : "Ввести новое значение" }</div>
                 <Checkbox toggle checked={isPlus} onChange={() => setIsPlus(!isPlus)} />
                 <div>
-                    <Input label="Введите сумму" required name="cost" value={costInputValue} 
-                        onChange={onCchangeCostValue} type={"number"} />
+                    <Input required name="cost" value={costInputValue} placeholder={"Введите сумму"}
+                        onChange={onCchangeCostValue} type={"number"} className={styles.costInput} />
                 </div>
                 <Button primary type='submit' className={styles.submitBtn}>Save</Button>
             </Form>

@@ -27,15 +27,5 @@ export const expensesDataAPI = {
     }
 }
 
-/* export const homePageDataAPI = {
-    getReviewsPart (currentRevPart = 1, revPartSize = 5) {
-        return instance.get(`home?currentRevPart=${currentRevPart}&revPartSize=${revPartSize}`) 
-            .then((response) => response.data)
-    },
-    postNewReview (reviewFormData) {
-        return instance.post('home/', {reviewFormData}) 
-            .then((response) => response.data)
-    }
-} */
 
 
