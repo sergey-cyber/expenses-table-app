@@ -77,14 +77,15 @@ export function CrateExpenseForm (props: Props) {
                 </Form.Field>
                 <Form.Field required>
                     <label>Cost:</label>
-                    <input type='number' placeholder='Expense cost' name='cost' value={formData.cost} onChange={handleChange} required />
+                    <input type='number' placeholder='Expense cost' name='cost' 
+                        autoComplete={"off"} value={formData.cost} onChange={handleChange} required />
                     {requiredError.cost && <div className={styles.error}>Require field</div>}
                 </Form.Field>
                 {
                 !formData.inThisMounth && 
                 <Form.Field>
                     <label>Date:</label>
-                    <input placeholder='Expense date' name='date' value={formData.date} onChange={handleChange} />
+                    <input placeholder='Expense date' name='date' value={formData.date} onChange={handleChange} autoComplete={"off"} />
                 </Form.Field>
                 }               
                 <Form.Field>

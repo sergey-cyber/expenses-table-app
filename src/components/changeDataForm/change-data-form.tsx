@@ -59,7 +59,7 @@ export function ChangeDataForm () {
                 <Checkbox toggle checked={isPlus} onChange={() => setIsPlus(!isPlus)} />
                 <div>
                     <Input required name="cost" value={costInputValue} placeholder={"Введите сумму"}
-                        onChange={onCchangeCostValue} type={"number"} className={styles.costInput} />
+                        autoComplete={"off"} onChange={onCchangeCostValue} type={"number"} className={styles.costInput} />
                 </div>
                 <Button primary type='submit' className={styles.submitBtn}>Save</Button>
             </Form>
