@@ -2,7 +2,7 @@ import * as axios from "axios";
 
 const instance = axios.create({ 
     /* withCredentials: true, */
-    baseURL: 'http://localhost:5000/api/' /* 'https://my-expenses-table-app.herokuapp.com/api/' */,
+    baseURL: /* 'http://localhost:5000/api/' */ 'https://my-expenses-table-app.herokuapp.com/api/',
     headers: {
         /* "Access-Control-Allow-Origin": "*" */
     }    
