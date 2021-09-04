@@ -1,16 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Select } from 'semantic-ui-react'
 import { getAllExpensesData, setCurrentDate } from '../../redux/table-reduser'
 import { getCurrentMonth, getCurrentYear } from '../../utilits/calcCurrentDate'
 import styles from './choosePeriod.module.scss'
 
-const yearOptions = [
-  { key: '2020', value: '2020', text: '2020' },
-  { key: '2021', value: '2021', text: '2021' }
-]
-
-const monthOptions = [
+export const monthOptions = [
     { key: 'January', value: 'January', text: 'January' },
     { key: 'February', value: 'February', text: 'February' },
     { key: 'March', value: 'March', text: 'March' },
@@ -27,6 +22,8 @@ const monthOptions = [
 
 export const ChoosePeriod = () => {
 
+    const yearsInBD = useSelector((state: any) => state.tableData.yearsInBD);
+    const yearOptions = yearsInBD.map((year: string) => ({key: year, value: year, text: year}));    
     const [year, setYear] = useState(getCurrentYear);
     const [month, setMonth] = useState(getCurrentMonth);
 
@@ -43,8 +40,7 @@ export const ChoosePeriod = () => {
         dispatch(setCurrentDate(year, month));
         dispatch(getAllExpensesData(year, month))
     }, [year, month])
-
-    return (
+    return ( 
         <div className={styles.choosePeriod}>
             <Select placeholder='Select year' value={year} options={yearOptions}
                 className={styles.choosePeriodItem} onChange={onYearChange} />

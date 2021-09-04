@@ -3,7 +3,7 @@ import { Table, Input, Button, Popconfirm, Form } from 'antd';
 import { expensesDataAPI } from '../api/api';
 import { Preloader } from './common/preloader';
 import { connect } from 'react-redux';
-import { getAllExpensesData } from '../redux/table-reduser';
+import { getAllExpensesData, setChangeDataFormOpen } from '../redux/table-reduser';
 import styles from './table.module.scss';
 
 const EditableContext = React.createContext(null);
@@ -99,14 +99,16 @@ class EditableTable extends React.Component {
       {
         title: 'Cost',
         dataIndex: 'cost',
-        editable: true,
         width: '12%',
+        render: (text, expData) => {
+          return this.renderNonEditableCell(text, expData)  
+        },
       },
       {
         title: 'Date',
         dataIndex: 'date',
-        editable: true,
         width: '12%',
+        editable: false
       },
       {
         title: 'operation',
@@ -121,8 +123,18 @@ class EditableTable extends React.Component {
       },
     ];
     this.state = {
-      count: null,
+      count: null
     };
+  }
+
+  renderNonEditableCell = (text, rowData) => {
+    const fieldNames = Object.keys(rowData);
+    const currFieldName = fieldNames.filter(name => rowData[name] === text)[0]
+    return (
+      <div onClick = {() => this.props.setChangeDataFormOpen(currFieldName, true, rowData)}>
+        {rowData[currFieldName]}
+      </div>
+    );
   }
 
   handleDelete = (key) => {
@@ -174,7 +186,7 @@ class EditableTable extends React.Component {
           editable: col.editable,
           dataIndex: col.dataIndex,
           title: col.title,
-          handleSave: this.handleSave,
+          handleSave: this.handleSave
         }),
       };
     });
@@ -216,5 +228,5 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, {getAllExpensesData})(EditableTable);
+export default connect(mapStateToProps, {getAllExpensesData, setChangeDataFormOpen })(EditableTable);
 

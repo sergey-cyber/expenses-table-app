@@ -4,7 +4,26 @@ import { getCurrentMonth, getCurrentYear } from "../utilits/calcCurrentDate";
 enum Actions {
     GET_ALL_EXPENSES = 'expenses-app/tableData/GET_ALL_EXPENSES',
     SET_DATA_IS_LOADING = 'expenses-app/tableData/SET_DATA_IS_LOADING',
-    SET_CUURENT_DATE = 'expenses-app/tableData/SET_CUURENT_DATE'
+    SET_CUURENT_DATE = 'expenses-app/tableData/SET_CUURENT_DATE',
+    SET_CHANGE_DATA_FORM_OPEN = 'expenses-app/tableData/SET_CHANGE_DATA_FORM_OPEN'
+}
+
+type Action = {
+    type: Actions.GET_ALL_EXPENSES,
+    dataSource: Array<ExpenseData>,
+    yearsInBD: Array<string>
+} | {
+    type: Actions.SET_DATA_IS_LOADING,
+    isLoading: boolean
+} | {
+    type: Actions.SET_CUURENT_DATE,
+    currentYear: string,
+    currentMonth: string
+} | {
+    type: Actions.SET_CHANGE_DATA_FORM_OPEN, 
+    currFieldNameChange: string | null, 
+    chancheFormIsOpen: boolean,
+    dataRowBeginModified: object | null
 }
 
 export type ExpenseData = {
@@ -18,26 +37,22 @@ export type State = {
     dataSource: Array<ExpenseData> | [],
     currentYear: string,
     currentMonth: string,
-    dataSourceIsLoading: boolean
+    dataSourceIsLoading: boolean,
+    currFieldNameChange: string | null
+    chancheFormIsOpen: boolean,
+    dataRowBeginModified: object | null,
+    yearsInBD: Array<string> | []
 }
-
-type Action = {
-        type: Actions.GET_ALL_EXPENSES,
-        dataSource: Array<ExpenseData>
-    } | {
-        type: Actions.SET_DATA_IS_LOADING,
-        isLoading: boolean
-    } | {
-        type: Actions.SET_CUURENT_DATE,
-        currentYear: string,
-        currentMonth: string
-    }
 
 const initialState: State = {
     dataSource: [],
     currentYear: getCurrentYear,
     currentMonth: getCurrentMonth,
-    dataSourceIsLoading: false
+    dataSourceIsLoading: false,
+    currFieldNameChange: null,
+    chancheFormIsOpen: false,
+    dataRowBeginModified: null,
+    yearsInBD: [] //Количество годов с данными, приходит с сервера
 };
 
 const tableReduser = (state: State = initialState, action: Action): State => {
@@ -46,6 +61,7 @@ const tableReduser = (state: State = initialState, action: Action): State => {
             return {
                 ...state,
                 dataSource: action.dataSource,
+                yearsInBD: action.yearsInBD
             }
         case Actions.SET_DATA_IS_LOADING:
             return {
@@ -58,6 +74,13 @@ const tableReduser = (state: State = initialState, action: Action): State => {
                 currentYear: action.currentYear,
                 currentMonth: action.currentMonth
         }
+        case Actions.SET_CHANGE_DATA_FORM_OPEN:
+            return {
+                ...state,
+                currFieldNameChange: action.currFieldNameChange,
+                chancheFormIsOpen: action.chancheFormIsOpen,
+                dataRowBeginModified: action.dataRowBeginModified
+        }
         default:
             return state;
     }
@@ -65,8 +88,8 @@ const tableReduser = (state: State = initialState, action: Action): State => {
 
 //Action Creators
 
-export const getAllExpensesDataAction = (expenses:Array<ExpenseData>): Action => {
-    return { type: Actions.GET_ALL_EXPENSES, dataSource: expenses };
+export const getAllExpensesDataAction = (expenses:Array<ExpenseData>, yearsInBD: Array<string>): Action => {
+    return { type: Actions.GET_ALL_EXPENSES, dataSource: expenses, yearsInBD };
 }
 
 export const setDataIsLoading = (isLoading: boolean): Action => {
@@ -77,6 +100,10 @@ export const setCurrentDate = (currentYear: string, currentMonth: string): Actio
     return { type: Actions.SET_CUURENT_DATE, currentYear, currentMonth };
 }
 
+export const setChangeDataFormOpen = (currFieldNameChange: string | null, chancheFormIsOpen: boolean, dataRowBeginModified: object | null): Action => {
+    return { type: Actions.SET_CHANGE_DATA_FORM_OPEN, currFieldNameChange, chancheFormIsOpen, dataRowBeginModified };
+}
+
 //Thunks
 
 export const getAllExpensesData = (currentYear: string, currentMonth: string) => {   
@@ -84,7 +111,7 @@ export const getAllExpensesData = (currentYear: string, currentMonth: string) =>
         dispatch(setDataIsLoading(true));
         return expensesDataAPI.getAllExpenses(currentYear, currentMonth).then((response: any) => {
             if (response.resultCode === 'successfull') {
-                dispatch(getAllExpensesDataAction(response.expenses));
+                dispatch(getAllExpensesDataAction(response.expenses, response.years));
             }
             dispatch(setDataIsLoading(false));
         });
