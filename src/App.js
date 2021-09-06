@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import { CrateExpenseForm } from './components/createExpForm/create-exp-form';
 import EditableTable from './components/table';
@@ -6,20 +6,27 @@ import 'semantic-ui-css/semantic.min.css';
 import { Footer } from './components/footer/footer';
 import { ChoosePeriod } from './components/choosePeriod/choosePeriod';
 import { ChangeDataForm } from './components/changeDataForm/change-data-form';
+import { Header } from './components/header/header';
+import { getLangLocalization } from './utilits/localization/index';
+import { useSelector } from 'react-redux';
+import { LocalizationContext } from "./utilits/hooks/useLangLoocalization";
 
 function App() {
 
+  const currentLang = useSelector((state) => state.localizationData.currentLang); 
   const [showCreateExpenseForm, setShowCreateExpenseForm] = useState(false); 
 
   return (
-    <div className="App">
-      <h1 style={{paddingTop: '25px'}}>Expenses Table App</h1>
-      <ChoosePeriod />
-      <EditableTable setShowCreateExpenseForm={setShowCreateExpenseForm} /> 
-      <CrateExpenseForm setShowCreateExpenseForm={setShowCreateExpenseForm} showCreateExpenseForm={showCreateExpenseForm} />
-      <ChangeDataForm />
-      <Footer />
-    </div>
+    <LocalizationContext.Provider value={ getLangLocalization(currentLang) }>
+      <div className="App">
+        <Header />
+        <ChoosePeriod />
+        <EditableTable setShowCreateExpenseForm={setShowCreateExpenseForm} /> 
+        <CrateExpenseForm setShowCreateExpenseForm={setShowCreateExpenseForm} showCreateExpenseForm={showCreateExpenseForm} />
+        <ChangeDataForm />
+        <Footer />
+      </div>
+    </LocalizationContext.Provider>
   );
 }
 

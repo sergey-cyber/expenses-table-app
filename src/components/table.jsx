@@ -5,6 +5,8 @@ import { Preloader } from './common/preloader';
 import { connect } from 'react-redux';
 import { getAllExpensesData, setChangeDataFormOpen } from '../redux/table-reduser';
 import styles from './table.module.scss';
+import { LocalizationContext } from '../utilits/hooks/useLangLoocalization';
+import { title } from 'process';
 
 const EditableContext = React.createContext(null);
 
@@ -88,7 +90,8 @@ const EditableCell = ({
 };
 
 class EditableTable extends React.Component {
-  constructor(props) {
+  static contextType = LocalizationContext;
+  constructor(props, context) {
     super(props);
     this.columns = [
       {
@@ -198,7 +201,7 @@ class EditableTable extends React.Component {
           style={{ marginBottom: 16 }}
           disabled={this.state.startDataLoading}
         >
-          Add a row
+          { this.context.addRowButton }
         </Button>
         {
         this.props.dataSourceIsLoading 

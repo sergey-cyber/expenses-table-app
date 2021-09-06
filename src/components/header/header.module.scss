@@ -1,0 +1,16 @@
+.header{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.headerMenu{
+    position: absolute;
+    top: 50%;
+    left: 2%;
+    transform: translateY(-50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
