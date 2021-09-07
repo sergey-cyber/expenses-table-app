@@ -3,9 +3,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Select } from 'semantic-ui-react'
 import { getAllExpensesData, setCurrentDate } from '../../redux/table-reduser'
 import { getCurrentMonth, getCurrentYear } from '../../utilits/calcCurrentDate'
+import { useLocalization } from '../../utilits/hooks/useLangLoocalization'
 import styles from './choosePeriod.module.scss'
 
-export const monthOptions = [
+export const months = [
     { key: 'January', value: 'January', text: 'January' },
     { key: 'February', value: 'February', text: 'February' },
     { key: 'March', value: 'March', text: 'March' },
@@ -18,10 +19,12 @@ export const monthOptions = [
     { key: 'October', value: 'October', text: 'October' },
     { key: 'November', value: 'November', text: 'November' },
     { key: 'December', value: 'December', text: 'December' },
-  ]
+  ];
 
 export const ChoosePeriod = () => {
 
+    const langMonthLocalization = useLocalization().months;
+    const monthOptions = months.map((obj, index) => ({ ...obj, text: langMonthLocalization[index] }));
     const yearsInBD = useSelector((state: any) => state.tableData.yearsInBD);
     const yearOptions = yearsInBD.map((year: string) => ({key: year, value: year, text: year}));    
     const [year, setYear] = useState(getCurrentYear);

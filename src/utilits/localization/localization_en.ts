@@ -9,6 +9,7 @@ export const localization_en: typeof localization_ru = {
             english: "English"
         }
     },
+    months: [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ],
     addRowButton: "Add a row",
     table: {
         expenses: "Expenses",
