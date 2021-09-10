@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 import { getAllExpensesData, setChangeDataFormOpen } from '../redux/table-reduser';
 import styles from './table.module.scss';
 import { LocalizationContext } from '../utilits/hooks/useLangLoocalization';
-import { title } from 'process';
 
 const EditableContext = React.createContext(null);
 
@@ -199,7 +198,7 @@ class EditableTable extends React.Component {
           onClick={this.handleAdd}
           type="primary"
           style={{ marginBottom: 16 }}
-          disabled={this.state.startDataLoading}
+          disabled={this.props.dataSourceIsLoading}
         >
           { this.context.addRowButton }
         </Button>

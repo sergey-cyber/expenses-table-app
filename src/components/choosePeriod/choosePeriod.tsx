@@ -26,7 +26,8 @@ export const ChoosePeriod = () => {
     const langMonthLocalization = useLocalization().months;
     const monthOptions = months.map((obj, index) => ({ ...obj, text: langMonthLocalization[index] }));
     const yearsInBD = useSelector((state: any) => state.tableData.yearsInBD);
-    const yearOptions = yearsInBD.map((year: string) => ({key: year, value: year, text: year}));    
+    const yearOptions = yearsInBD.map((year: string) => ({key: year, value: year, text: year}));
+    const dataSourceIsLoading = useSelector((state: any) => state.tableData.dataSourceIsLoading);    
     const [year, setYear] = useState(getCurrentYear);
     const [month, setMonth] = useState(getCurrentMonth);
 
@@ -46,9 +47,9 @@ export const ChoosePeriod = () => {
     return ( 
         <div className={styles.choosePeriod}>
             <Select placeholder='Select year' value={year} options={yearOptions}
-                className={styles.choosePeriodItem} onChange={onYearChange} />
+                className={styles.choosePeriodItem} onChange={onYearChange} disabled={dataSourceIsLoading} />
             <Select placeholder='Select month' value={month} options={monthOptions}
-                className={styles.choosePeriodItem} onChange={onMonthChange} />
+                className={styles.choosePeriodItem} onChange={onMonthChange} disabled={dataSourceIsLoading} />
         </div>
     )  
 }
