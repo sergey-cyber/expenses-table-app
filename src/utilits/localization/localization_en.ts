@@ -6,7 +6,12 @@ export const localization_en: typeof localization_ru = {
         menu: {
             language: "Language",
             russian: "Russia",
-            english: "English"
+            english: "English",
+            theme: {
+                triger: "Themes",
+                dark: "Dark",
+                light: "Light"
+            }
         }
     },
     months: [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ],

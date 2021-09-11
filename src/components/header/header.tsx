@@ -2,13 +2,14 @@ import { Menu, Dropdown } from 'antd';
 import { SettingOutlined, CheckOutlined } from '@ant-design/icons';
 import styles from "./header.module.scss";
 import { useDispatch, useSelector } from 'react-redux';
-import { Langs, setLangLocalization } from '../../redux/localization-reduser';
+import { Langs, setGlobalTheme, setLangLocalization, Themes } from '../../redux/localization-reduser';
 import { useLocalization } from '../../utilits/hooks/useLangLoocalization';
 
 
 export function Header() {
 
     const currentLang = useSelector((state: any) => state.localizationData.currentLang);
+    const globalTheme = useSelector((state: any) => state.localizationData.globalTheme);
     const langLocalization = useLocalization();
     const menuLocalization = useLocalization().header.menu;
     const dispatch = useDispatch();
@@ -27,6 +28,17 @@ export function Header() {
                     { currentLang === Langs.EN && <CheckOutlined style={{paddingLeft: "5px"}} /> }
                 </Menu.Item>
             </SubMenu>
+
+            <SubMenu title={ menuLocalization.theme.triger } key="Themes">
+                <Menu.Item onClick={ () => dispatch(setGlobalTheme(Themes.DARK)) } key={Themes.DARK} >
+                    { menuLocalization.theme.dark }
+                    { globalTheme === Themes.DARK && <CheckOutlined style={{paddingLeft: "5px"}} /> }
+                </Menu.Item>
+                <Menu.Item onClick={ () => dispatch(setGlobalTheme(Themes.LIGHT)) } key={Themes.LIGHT} >
+                    { menuLocalization.theme.light }
+                    { globalTheme === Themes.LIGHT && <CheckOutlined style={{paddingLeft: "5px"}} /> }
+                </Menu.Item>
+            </SubMenu>
         </Menu>
     )
 
@@ -38,6 +50,7 @@ export function Header() {
                     <SettingOutlined style={{fontSize: "2em"}} />
                 </a>
             </Dropdown>
+            
         </header>
     )
 }

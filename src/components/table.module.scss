@@ -1,9 +1,16 @@
-.table{
-    margin-bottom: 50px;
-}
+@use "../styles/themify.scss" as *;
 
 .deleteBtn{
     cursor: pointer;
     color: blue;
+}
+
+.addRowButton{
+    display: block !important;
+    margin: 16px auto !important;
+    border: none !important;
+    @include themify($themes) {  
+        background-color: themed('button_background_color') !important;  
+    }
 }
 

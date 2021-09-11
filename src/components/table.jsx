@@ -197,7 +197,7 @@ class EditableTable extends React.Component {
         <Button
           onClick={this.handleAdd}
           type="primary"
-          style={{ marginBottom: 16 }}
+          className={styles.addRowButton}
           disabled={this.props.dataSourceIsLoading}
         >
           { this.context.addRowButton }

@@ -1,7 +1,7 @@
+@use "../../styles/themify.scss" as *;
+
 .footer{
-    background-color: #1890ff;
     padding: 15px 0;
-    color: white;
     font-size: 18px;
     font-weight: 500;
     font-style: italic;
@@ -10,7 +10,12 @@
     position: absolute;
     bottom: 0;
     left: 0;
+    transition: .3s;
     div{
         padding-left: 15px
     }
+    @include themify($themes) {  
+        background-color: themed('footer_background_color');  
+        color: themed('footer_font_color');
+      }
 }

@@ -1,0 +1,9 @@
+@use "./styles/themify.scss" as *;
+
+.App{
+  @include themify($themes) {  
+    background-color: themed('global_background_color');  
+  }
+  min-height: 100vh;
+  transition: .3s;
+}
