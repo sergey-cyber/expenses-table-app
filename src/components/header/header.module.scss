@@ -1,31 +1,34 @@
 @use "../../styles/themify.scss" as *;
 
-.header{
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    h1{
-        @include themify($themes) {
-            color: themed('global_font_color');  
-        }
+$headerHeight: 75px;
+
+.header {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: $headerHeight;
+  h1 {
+    @include themify($themes) {
+      color: themed("global_font_color");
     }
-    @include themify($themes) {  
-        background-color: themed('header_background_color');  
-    }
-    transition: .3s;
+  }
+  @include themify($themes) {
+    background-color: themed("header_background_color");
+  }
+  transition: 0.3s;
 }
 
-.headerMenu{
-    position: absolute;
-    top: 50%;
-    left: 2%;
-    transform: translateY(-50%);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: .3s;
-    @include themify($themes) {  
-        color: themed('gonfig_icon_color');  
-    }
+.headerMenu {
+  position: absolute;
+  top: 50%;
+  left: 2%;
+  transform: translateY(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.3s;
+  @include themify($themes) {
+    color: themed("gonfig_icon_color");
+  }
 }

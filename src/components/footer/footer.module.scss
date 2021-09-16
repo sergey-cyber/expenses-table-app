@@ -1,21 +1,21 @@
 @use "../../styles/themify.scss" as *;
 
-.footer{
-    padding: 15px 0;
-    font-size: 18px;
-    font-weight: 500;
-    font-style: italic;
-    display: flex;
-    width: 100%;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    transition: .3s;
-    div{
-        padding-left: 15px
-    }
-    @include themify($themes) {  
-        background-color: themed('footer_background_color');  
-        color: themed('footer_font_color');
-      }
+$footerHeight: 60px;
+
+.footer {
+  padding: 15px 0;
+  font-size: 18px;
+  font-weight: 500;
+  font-style: italic;
+  display: flex;
+  width: 100%;
+  transition: 0.3s;
+  height: $footerHeight;
+  div {
+    padding-left: 15px;
+  }
+  @include themify($themes) {
+    background-color: themed("footer_background_color");
+    color: themed("footer_font_color");
+  }
 }

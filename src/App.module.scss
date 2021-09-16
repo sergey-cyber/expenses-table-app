@@ -1,9 +1,20 @@
 @use "./styles/themify.scss" as *;
+@use "./components/header/header.module.scss" as header;
+@use "./components/footer/footer.module.scss" as footer;
 
-.App{
-  @include themify($themes) {  
-    background-color: themed('global_background_color');  
+$appWrapperHeight: calc(
+  100vh - #{header.$headerHeight} - #{footer.$footerHeight}
+);
+
+.App {
+  @include themify($themes) {
+    background-color: themed("global_background_color");
   }
   min-height: 100vh;
-  transition: .3s;
+  transition: 0.3s;
+}
+
+.appWrapper {
+  height: $appWrapperHeight;
+  overflow: auto;
 }

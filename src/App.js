@@ -25,13 +25,16 @@ function App() {
       <div className={`theme-${globalThemeName}`}>
         <div className={styles.App}>
           <Header />
+          <div className={styles.appWrapper}>
           <ChoosePeriod />
-          <EditableTable setShowCreateExpenseForm={setShowCreateExpenseForm} />
-          <CrateExpenseForm
-            setShowCreateExpenseForm={setShowCreateExpenseForm}
-            showCreateExpenseForm={showCreateExpenseForm}
-          />
-          <ChangeDataForm />
+          
+            <EditableTable setShowCreateExpenseForm={setShowCreateExpenseForm} />
+            <CrateExpenseForm
+              setShowCreateExpenseForm={setShowCreateExpenseForm}
+              showCreateExpenseForm={showCreateExpenseForm}
+            />
+            <ChangeDataForm />
+          </div>
           <Footer />
         </div>
       </div>
