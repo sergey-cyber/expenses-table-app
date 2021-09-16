@@ -16,5 +16,5 @@ $appWrapperHeight: calc(
 
 .appWrapper {
   height: $appWrapperHeight;
-  overflow: auto;
+  overflow-x: auto;
 }
